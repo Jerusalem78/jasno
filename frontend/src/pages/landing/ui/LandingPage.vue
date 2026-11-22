@@ -1,79 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import { benefits, learningSteps, previewTasks, questions, skills } from '../../../entities/learning/model/demo-data.js'
+import BrandLogo from '../../../shared/ui/BrandLogo.vue'
 
+const emit = defineEmits(['navigate'])
 const activeQuestion = ref(0)
 const menuOpen = ref(false)
-
-const tasks = [
-  { icon: '/figma/repeat.svg', title: 'Повторить 12 слов', note: 'Интервальное повторение', time: '5 мин' },
-  { icon: '/figma/headphones.svg', title: 'Разобрать разговор в кафе', note: 'Аудирование · уровень B1', time: '8 мин' },
-  { icon: '/figma/mic.svg', title: 'Рассказать о своих планах', note: 'Говорение · запись ответа', time: '7 мин' },
-]
-
-const skills = [
-  { name: 'Грамматика', score: 68 },
-  { name: 'Словарный запас', score: 74 },
-  { name: 'Аудирование', score: 42 },
-  { name: 'Чтение', score: 71 },
-  { name: 'Говорение', score: 56 },
-]
-
-const benefits = [
-  {
-    icon: '/figma/compass.svg',
-    quote: '«Не понимаю, что подтянуть»',
-    title: 'Знайте свою точку роста',
-    body: 'Грамматика, слова, аудирование, чтение и говорение — в одной карте навыков. План подскажет, с чего начать.',
-    tag: 'Фокус: аудирование',
-    result: 'Больше практики там, где она нужна',
-  },
-  {
-    icon: '/figma/repeat-card.svg',
-    quote: '«Я ведь уже учила это слово»',
-    title: 'Помните, а не переучивайте',
-    body: 'Интервальное повторение возвращает слова до того, как они забудутся. Никаких случайных пробелов.',
-    tag: 'Сегодня: 12 слов',
-    result: 'Вовремя повторить — надолго запомнить',
-  },
-  {
-    icon: '/figma/calendar-check.svg',
-    quote: '«Что делать до следующего урока?»',
-    title: 'Открывайте готовый план',
-    body: 'Три конкретных задания на день свяжут занятия с преподавателем. 20 минут практики вместо долгого выбора.',
-    tag: 'Ваш план: 20 минут',
-    result: 'Слова → слушать → говорить',
-  },
-]
-
-const steps = [
-  { title: 'Расскажите о себе', text: 'Выберите цель и пройдите три коротких вопроса. Получите первую оценку уровня.' },
-  { title: 'Получите свой маршрут', text: 'Увидьте навыки, точку роста и посильный план. Всё подстраивается под вашу цель.' },
-  { title: 'Практикуйтесь понемногу', text: 'Выполняйте задания, повторяйте слова и наблюдайте за прогрессом.' },
-]
-
-const questions = [
-  { question: 'С какого уровня можно начать?', answer: 'С любого: от A1 до C2. Короткий тест даст примерную отправную точку, а задания помогут уточнить её со временем.' },
-  { question: 'Платформа заменяет преподавателя?', answer: 'Нет. Она помогает заниматься самостоятельно между уроками: закреплять материал, повторять слова и приходить к преподавателю с вопросами.' },
-  { question: 'Как вы помогаете не забывать слова?', answer: 'Слова возвращаются через увеличивающиеся интервалы. Сложные встречаются чаще, знакомые — реже. Список на сегодня уже собран за вас.' },
-  { question: 'Сколько времени нужно в день?', answer: 'Начните с 20 минут. Это три небольших задания; можно выполнить их сразу или разделить в течение дня.' },
-  { question: 'Можно попробовать бесплатно?', answer: 'Да. Регистрация, короткий тест и первый персональный план доступны бесплатно. Банковская карта для старта не нужна.' },
-]
-
-function requestAuth(intent) {
-  // Public event hook for connecting the future sign-in and onboarding API.
-  window.dispatchEvent(new CustomEvent('jasno:auth', { detail: { intent } }))
-}
+const tasks = previewTasks
+const steps = learningSteps
+function requestAuth(intent) { emit('navigate', intent === 'signup' ? 'register' : 'login') }
 </script>
-
 <template>
-  <main>
+<main>
     <section id="top" class="hero-shell">
       <header class="site-header page-width">
-        <a class="brand" href="#top" aria-label="Ясно — английский, на главную">
-          <span class="brand-mark"><img src="/figma/audio-lines.svg" alt="" /></span>
-          <span class="brand-name">ясно</span>
-          <span class="brand-caption">английский</span>
-        </a>
+        <BrandLogo href="#top" label="Ясно — английский, на главную" />
         <nav class="main-nav" :class="{ 'nav-open': menuOpen }" aria-label="Главное меню">
           <a href="#features">Возможности</a>
           <a href="#how-it-works">Как это работает</a>
@@ -223,12 +164,11 @@ function requestAuth(intent) {
 
     <footer class="site-footer">
       <div class="page-width footer-main">
-        <a class="brand" href="#top" aria-label="Ясно — на главную">
-          <span class="brand-mark"><img src="/figma/audio-lines.svg" alt="" /></span><span class="brand-name">ясно</span><span class="brand-caption">английский</span>
-        </a>
+        <BrandLogo href="#top" label="Ясно — на главную" />
         <nav class="footer-nav" aria-label="Ссылки в подвале"><a href="#features">О платформе</a><a href="#questions">Поддержка</a><a href="#questions">Вопросы</a></nav>
       </div>
       <div class="page-width footer-legal"><span>© 2026 Ясно. Учитесь в своём темпе.</span><span>Конфиденциальность · Условия использования</span></div>
     </footer>
   </main>
+
 </template>
