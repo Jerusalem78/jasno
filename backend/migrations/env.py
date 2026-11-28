@@ -15,6 +15,8 @@ sys.path.insert(0, str(SRC_DIR))
 
 from core.database import Base  # noqa: E402
 from users.models import UserOrm  # noqa: E402,F401
+from users.models import UserCourseOrm  # noqa: E402,F401
+from courses.models import CourseOrm  # noqa: E402,F401
 from core.settings import setting  # noqa: E402
 
 

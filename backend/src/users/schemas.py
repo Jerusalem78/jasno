@@ -9,7 +9,6 @@ class UserBase(BaseModel):
     native_language: LangEnum = LangEnum.RU
     learning_language: LangEnum = LangEnum.EN
     daily_goal_minutes: int = Field(default=15, ge=1, le=1440)
-    language_level: LevelEnum = LevelEnum.A1
 
 
 class UserCreate(UserBase):
@@ -21,7 +20,6 @@ class UserUpdate(BaseModel):
     native_language: LangEnum | None = None
     learning_language: LangEnum | None = None
     daily_goal_minutes: int | None = Field(default=None, ge=1, le=1440)
-    language_level: LevelEnum | None = None
 
 
 class UserRead(UserBase):

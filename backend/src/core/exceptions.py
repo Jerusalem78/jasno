@@ -9,6 +9,22 @@ class UserNotFoundException(HTTPException):
         )
 
 
+class CourseNotFoundException(HTTPException):
+    def __init__(self) -> None:
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found",
+        )
+
+
+class CoursePermissionException(HTTPException):
+    def __init__(self) -> None:
+        super().__init__(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only an administrator or the course creator can modify this course",
+        )
+
+
 class UserAlreadyExistsException(HTTPException):
     def __init__(self) -> None:
         super().__init__(

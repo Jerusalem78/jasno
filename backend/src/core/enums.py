@@ -12,3 +12,7 @@ class LevelEnum(enum.Enum):
     B2 = "B2"
     C1 = "C1"
     C2 = "C2"
+
+class UserRole(enum.Enum):
+    STUDENT = "student"
+    ADMIN = "admin"
